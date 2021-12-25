@@ -1,17 +1,31 @@
 package ru.alinadorozhkina.deezer_music.mvp.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.github.terrakok.cicerone.androidx.AppNavigator
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
+import ru.alinadorozhkina.deezer_music.App
 import ru.alinadorozhkina.deezer_music.R
 import ru.alinadorozhkina.deezer_music.databinding.ActivityMainBinding
-import ru.alinadorozhkina.deezer_music.mvp.ui.fragments.ChartFragment
+import ru.alinadorozhkina.deezer_music.mvp.contract.MainContract
+import ru.alinadorozhkina.deezer_music.mvp.presenter.MainPresenter
+import ru.alinadorozhkina.deezer_music.mvp.ui.navigation.AndroidScreens
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : MvpAppCompatActivity(), MainContract.MainView {
 
     private var vb: ActivityMainBinding? = null
+
+    val navigator = AppNavigator(this, R.id.container)
+
+    @InjectPresenter
+    lateinit var presenter: MainPresenter
+
+    @ProvidePresenter
+    fun providePresenter() = MainPresenter(App.INSTANCE.router, AndroidScreens())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,10 +33,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(vb?.root)
         setSupportActionBar(vb?.toolbar)
         initNavigation()
-        supportFragmentManager.beginTransaction()
-            .add(R.id.container, ChartFragment.newInstance()) // or replace с теми же параметрами
-            .addToBackStack(null) // если необходимо, чтоб по нажатию "назад" вы могли вернуться на предыдущий фрагмент. Вместо null можно задать свой ключ.
-            .commit();
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -47,5 +57,15 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        App.INSTANCE.navigatorHolder.setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        App.INSTANCE.navigatorHolder.removeNavigator()
+        super.onPause()
     }
 }
