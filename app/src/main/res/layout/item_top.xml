@@ -2,39 +2,35 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/home_card_view"
-    android:layout_width="128dp"
-    android:layout_height="154dp"
-    android:layout_marginEnd="10dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="6dp"
-    android:backgroundTint="@color/background">
+    style="@style/CardViewStyle"
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_poster"
-            android:layout_width="128dp"
-            android:layout_height="120dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/image_height"
+            android:scaleType="fitXY"
             android:src="@color/purple_200"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <FrameLayout
             android:id="@+id/container_position"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/position_container"
             app:layout_constraintStart_toStartOf="@id/iv_poster"
             app:layout_constraintTop_toTopOf="@id/iv_poster" />
 
         <TextView
             android:id="@+id/tv_position"
+            style="@style/TextHeaderStyle.Position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
-            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@id/container_position"
             app:layout_constraintEnd_toEndOf="@id/container_position"
             app:layout_constraintStart_toStartOf="@id/container_position"
@@ -42,36 +38,24 @@
 
         <TextView
             android:id="@+id/tv_title"
+            style="@style/TextTitleStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Название"
-            android:textColor="@color/white"
-            android:textSize="14sp"
+            android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/play_icon"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_poster" />
 
         <TextView
             android:id="@+id/tv_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Артист"
-            android:textColor="@color/white"
-            android:textSize="14sp"
+            style="@style/TextTitleStyle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/play_icon"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-        <ImageView
-            android:id="@+id/play_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_play_arrow_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_poster" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.google.android.material.card.MaterialCardView>
 
