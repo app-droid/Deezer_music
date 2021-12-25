@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="image_height">120dp</dimen>
+    <dimen name="position_container">30dp</dimen>
+
+    <dimen name="margin_padding_margin_size_small">8dp</dimen>
+    <dimen name="margin_padding_margin_size_medium">16dp</dimen>
+    <dimen name="margin_padding_margin_size_large">24dp</dimen>
+    <dimen name="elevation">8dp</dimen>
+    <dimen name="corner_radius">8dp</dimen>
+    <dimen name="card_width">128dp</dimen>
+</resources>

@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Deezer_music</string>
+    <string name="app_name">Deezer Music</string>
+    <string name="search_hint">поиск</string>
+    <string name="home">главная</string>
+    <string name="radio">радио</string>
+    <string name="favourites">избранное</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="top_10_tracks">Топ 10 лучших треков</string>
+    <string name="top_10_albums">Топ 10 лучших альбомов</string>
+    <string name="top_10_artists">Топ 10 лучших треков</string>
+
 </resources>

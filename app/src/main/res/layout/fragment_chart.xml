@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title_top_tracks"
+            style="@style/TextHeaderStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_padding_margin_size_small"
+            android:layout_marginEnd="@dimen/margin_padding_margin_size_small"
+            android:text="@string/top_10_tracks"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_top_tracks"
+            style="@style/RVStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_top_tracks"
+            tools:listitem="@layout/item_top" />
+
+        <TextView
+            android:id="@+id/title_top_albums"
+            style="@style/TextHeaderStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_padding_margin_size_small"
+            android:layout_marginTop="@dimen/margin_padding_margin_size_large"
+            android:layout_marginEnd="@dimen/margin_padding_margin_size_small"
+            android:text="@string/top_10_albums"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_top_tracks" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_top_albums"
+            style="@style/RVStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_top_albums"
+            tools:listitem="@layout/item_top" />
+
+        <TextView
+            android:id="@+id/title_top_artists"
+            style="@style/TextHeaderStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_padding_margin_size_small"
+            android:layout_marginTop="@dimen/margin_padding_margin_size_large"
+            android:layout_marginEnd="@dimen/margin_padding_margin_size_small"
+            android:text="@string/top_10_artists"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_top_albums" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_top_artist"
+            style="@style/RVStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_top_artists"
+            tools:listitem="@layout/item_top" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
