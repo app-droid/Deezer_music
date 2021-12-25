@@ -3,6 +3,8 @@ plugins {
     id 'kotlin-android'
 }
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdk 31
 
@@ -26,6 +28,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+        viewBinding true
+    }
+    
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -37,7 +44,39 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+
+    //Основная библиотека
+    implementation "io.insert-koin:koin-core:3.1.2"
+    //Koin для поддержки Android (Scope,ViewModel ...)
+    implementation "io.insert-koin:koin-android:3.1.2"
+    //Для совместимости с Java
+    implementation "io.insert-koin:koin-android-compat:3.1.2"
+
+    //Moxy
+    kapt "com.github.moxy-community:moxy-compiler:2.1.2"
+
+    implementation "com.github.moxy-community:moxy-androidx:2.2.2"
+    implementation "com.github.moxy-community:moxy-ktx:2.1.2"
+    //Cicerone
+    implementation 'com.github.terrakok:cicerone:6.6'
+
+    //Rx-Java
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
+
+    //Retrofit 2
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+
+
 }
