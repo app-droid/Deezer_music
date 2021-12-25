@@ -51,9 +51,9 @@ class MainActivity : MvpAppCompatActivity(), MainContract.MainView {
     private fun initNavigation() {
         vb?.bottomNavigation?.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.main -> Toast.makeText(this, "home", Toast.LENGTH_LONG).show()
-                R.id.radio -> Toast.makeText(this, "radio", Toast.LENGTH_LONG).show()
-                R.id.favourites -> Toast.makeText(this, "favorites", Toast.LENGTH_LONG).show()
+                R.id.main -> presenter.toMain()
+                R.id.radio -> presenter.toRadio()
+                R.id.favourites -> presenter.toFavourites()
             }
             true
         }

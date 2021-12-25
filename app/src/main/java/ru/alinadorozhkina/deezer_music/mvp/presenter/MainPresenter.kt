@@ -15,6 +15,18 @@ class MainPresenter(
         super.onFirstViewAttach()
     }
 
+    fun toMain(){
+        router.navigateTo(screens.main())
+    }
+
+    fun toRadio(){
+        router.navigateTo(screens.radio())
+    }
+
+    fun toFavourites(){
+        router.navigateTo(screens.favourites())
+    }
+
     override fun onDestroy() {
         super.onDestroy()
     }
