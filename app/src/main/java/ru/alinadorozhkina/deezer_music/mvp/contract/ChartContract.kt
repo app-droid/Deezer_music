@@ -1,18 +1,23 @@
 package ru.alinadorozhkina.deezer_music.mvp.contract
 
+import io.reactivex.Observable
+import io.reactivex.Single
+import ru.alinadorozhkina.deezer_music.mvp.model.entities.Chart
+import ru.alinadorozhkina.deezer_music.mvp.model.entities.Genre
+import ru.alinadorozhkina.deezer_music.mvp.model.entities.Track
+
 interface ChartContract {
 
-    interface View<E : AppStateEntity> : IBaseView<E>
+    interface View : IBaseView<Chart>
 
-    interface Presenter<E : AppStateEntity> : IPresenter<E, View<E>> {
+    interface Presenter: IPresenter<Chart, View> {
         fun getChartData()
     }
 
-    interface IChartItemView<E : AppStateEntity> : IItemView {
-        fun bind(data: E)
-    }
+    interface Repository<T> {
 
-    interface IChartListPresenter<E : AppStateEntity> : IListPresenter<IChartItemView<E>>
+        fun getData(): Observable<T>
+    }
 
     interface BaseClickListener
 
