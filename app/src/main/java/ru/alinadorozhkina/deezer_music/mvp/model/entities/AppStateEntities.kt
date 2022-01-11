@@ -21,13 +21,13 @@ data class TopTracks(
 
 data class Track(
     @SerializedName("id")
-    val id: Int,
+    val id: Int?,
     @SerializedName("title")
     val title: String,
     @SerializedName("position")
-    val position: Int,
+    val position: Int?,
     @SerializedName("preview")
-    val preview: String,
+    val preview: String?,
     @SerializedName("artist")
     val artist: Artist
 ) : AppStateEntity
@@ -65,9 +65,38 @@ data class Artist(
     @SerializedName("name")
     val name: String,
     @SerializedName("tracklist")
-    val tracklist: String,
+    val tracklist: String?,
     @SerializedName("position")
-    val position: Int,
+    val position: Int?,
     @SerializedName("picture_medium")
     val picture: String
 ) : AppStateEntity
+
+data class Radio(
+    @SerializedName("data")
+    val data: List< Genre>
+             
+) : AppStateEntity
+
+data class Genre(
+    @SerializedName("title")
+    val title: String,
+    @SerializedName("tracklist")
+    val tracklist: String,
+) : AppStateEntity
+
+data class TrackList(
+    @SerializedName("data")
+    val data: List<Track>
+) : AppStateEntity
+
+data class CategoryModel(
+    val title: String,
+    val tracks: List<Track>
+) : AppStateEntity
+
+data class Category(
+    val data: List<CategoryModel>
+) : AppStateEntity
+
+
