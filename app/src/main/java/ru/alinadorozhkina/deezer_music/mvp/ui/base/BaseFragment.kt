@@ -9,7 +9,8 @@ import ru.alinadorozhkina.deezer_music.mvp.contract.AppStateEntity
 import ru.alinadorozhkina.deezer_music.mvp.presenter.base.BasePresenter
 import ru.alinadorozhkina.deezer_music.mvp.contract.IBaseView
 
-abstract class BaseFragment<VB : ViewBinding,
+abstract class BaseFragment<
+        VB : ViewBinding,
         E : AppStateEntity,
         P : BasePresenter<*, *>>
     : MvpAppCompatFragment(), IBaseView<E> {
@@ -18,8 +19,10 @@ abstract class BaseFragment<VB : ViewBinding,
     protected val binding get() = bindingNullable!!
     abstract var presenter: P
 
+
     @ProvidePresenter
     fun providePresenter() = presenter
+
 
     override fun renderData(baseState: AppState<E>) {
         when (baseState) {
