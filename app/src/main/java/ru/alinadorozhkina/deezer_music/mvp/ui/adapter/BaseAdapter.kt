@@ -4,21 +4,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.alinadorozhkina.deezer_music.mvp.contract.AppStateEntity
-import ru.alinadorozhkina.deezer_music.mvp.contract.ChartContract
+import ru.alinadorozhkina.deezer_music.mvp.contract.*
 
-class BaseAdapter<E : AppStateEntity>(
-    private val presenter: ChartContract.IChartListPresenter<E>,
+open class BaseAdapter<E : AppStateEntity >(
+    private val presenter: IListPresenter<E, IDataItemView<E>>,
     private val itemLayoutId: Int,
     private val bind: ((View, data: E) -> Unit)
 ) : RecyclerView.Adapter<BaseAdapter<E>.BaseViewHolder>() {
 
-    inner class BaseViewHolder(private val root: View) : RecyclerView.ViewHolder(root),
-        ChartContract.IChartItemView<E> {
+    open inner class BaseViewHolder(private val root: View) : RecyclerView.ViewHolder(root),
+        IDataItemView<E> {
 
         override var pos = -1
 
-        override fun bind(data: E) {
+        override  fun bind(data: E) {
             bind(root, data)
         }
     }
@@ -37,3 +36,20 @@ class BaseAdapter<E : AppStateEntity>(
 
     override fun getItemCount(): Int = presenter.getCount()
 }
+
+//class ChildAdapter(
+//    private val presenter: ChildRadioListPresenter,
+//    private val itemLayoutId: Int,
+//    private val bind: ((View, data: Track) -> Unit)
+//): BaseAdapter<Track>(presenter, itemLayoutId, bind)
+//
+//class ParentAdapter(
+//    private val presenter: RadioListPresenter,
+//    private val itemLayoutId: Int,
+//    private val bind: ((View, data: Genre) -> Unit)
+//): BaseAdapter<Genre>(presenter, itemLayoutId, bind) {
+//    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+//
+//    }
+
+

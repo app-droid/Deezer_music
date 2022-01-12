@@ -26,7 +26,7 @@ import ru.alinadorozhkina.deezer_music.mvp.ui.base.BaseFragment
 
 class ChartFragment :
     BaseFragment<FragmentChartBinding, Chart, ChartPresenter>(),
-    ChartContract.View<Chart> {
+    ChartContract.View {
 
     override var bindingNullable: FragmentChartBinding? = null
     private val imageLoader: IImageLoader<ImageView> = GlideImageLoader()

@@ -5,11 +5,12 @@ import ru.alinadorozhkina.deezer_music.mvp.contract.AppState
 import ru.alinadorozhkina.deezer_music.mvp.contract.AppStateEntity
 import ru.alinadorozhkina.deezer_music.mvp.contract.Interactor
 import ru.alinadorozhkina.deezer_music.mvp.contract.Repository
+import ru.alinadorozhkina.deezer_music.mvp.model.entities.Chart
 
-class MainInteractor<E: AppStateEntity>(
-    private val repository: Repository<E>
-) : Interactor<E> {
-    override fun getData(): Observable<AppState<E>> {
+class MainInteractor(
+    private val repository: Repository<Chart>
+) : Interactor<AppState<Chart>> {
+    override fun getData(): Observable<AppState<Chart>> {
         return repository.getData().map { AppState.Success(it) }
     }
 }
