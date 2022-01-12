@@ -18,8 +18,8 @@ interface RadioContract {
     interface DataSource  {
         fun getData(): Single<List<CategoryModel>>
     }
-//
-    interface Interactor<T> {
-        fun getData(): Single<T>
+
+    interface Interactor{
+        fun getData(): Single<AppState<Category>>
     }
 }

@@ -9,13 +9,12 @@ import ru.alinadorozhkina.deezer_music.mvp.model.entities.Category
 
 class RadioInteractor(
     private val repoRadio: RadioContract.Repository = RadioRepository(),
-) : RadioContract.Interactor<AppState<Category>> {
-    override fun getData(): Single<AppState<Category>> {
-        return repoRadio.getData().map {
+) : RadioContract.Interactor {
+    override fun getData(): Single<AppState<Category>> =
+        repoRadio.getData().map {
             Log.d("RadioPresenter", it.toString())
             AppState.Success(it)
         }
-    }
 }
 
 

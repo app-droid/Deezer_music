@@ -10,9 +10,8 @@ import ru.alinadorozhkina.deezer_music.mvp.model.entities.*
 class DataSourceRadio : RadioContract.DataSource {
 
     override fun getData(): Single<List<CategoryModel>> {
-
         return getListGenreData().flatMapIterable {
-            it
+            it.take(15)
         }.flatMap { genre ->
             getTrackList(genre).toObservable().map {
                 createDataModel(genre, it)
@@ -20,17 +19,11 @@ class DataSourceRadio : RadioContract.DataSource {
         }.toList()
     }
 
-    private fun getTrackList(genre: Genre): Single<List<Track>> {
-        return RetrofitService.api.getTrackList(genre.tracklist).map {
-            it.data
-        }
-    }
+    private fun getTrackList(genre: Genre): Single<List<Track>> =
+        RetrofitService.api.getTrackList(genre.tracklist).map { it.data }
 
-    private fun getListGenreData(): Observable<List<Genre>> {
-        return RetrofitService.api.getRadioData().map {
-            it.data
-        }
-    }
+    private fun getListGenreData(): Observable<List<Genre>> =
+        RetrofitService.api.getRadioData().map { it.data }
 
     private fun createDataModel(genre: Genre, tracks: List<Track>): CategoryModel {
         val model = CategoryModel(genre.title, tracks)
