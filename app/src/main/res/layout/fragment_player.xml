@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_container"
+    android:layout_width="match_parent"
+    android:layout_height="360dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/picture">
+        </com.google.android.material.imageview.ShapeableImageView>
+
+    <FrameLayout
+        android:id="@+id/frame_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="#80000000" />
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_track_title"
+                style="@style/TextHeaderStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Название трека"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_artist_name"
+                style="@style/TextTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Название артиста"
+                android:layout_marginTop="@dimen/margin_padding_margin_size_small"
+                android:textAlignment="center" />
+
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_margin_size_large"
+                android:layout_gravity="center" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_padding_margin_size_large"
+                >
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/previous_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_skip_previous_24"
+                    android:layout_weight="1"
+                    android:contentDescription="previous"
+                    android:background="@android:color/transparent"/>
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/play_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_play_arrow_24"
+                    android:layout_weight="1"
+                    android:contentDescription="play"
+                    android:background="@android:color/transparent"/>
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/next_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_skip_next_24"
+                    android:layout_weight="1"
+                    android:contentDescription="next"
+                    android:background="@android:color/transparent"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
