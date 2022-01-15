@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import moxy.presenter.InjectPresenter
+import ru.alinadorozhkina.deezer_music.App
 import ru.alinadorozhkina.deezer_music.R
 import ru.alinadorozhkina.deezer_music.mvp.contract.ChartContract
 import ru.alinadorozhkina.deezer_music.databinding.FragmentChartBinding
@@ -23,6 +24,7 @@ import ru.alinadorozhkina.deezer_music.mvp.presenter.list.TopArtistListPresenter
 import ru.alinadorozhkina.deezer_music.mvp.presenter.list.TopTracksListPresenter
 import ru.alinadorozhkina.deezer_music.mvp.ui.adapter.BaseAdapter
 import ru.alinadorozhkina.deezer_music.mvp.ui.base.BaseFragment
+import ru.alinadorozhkina.deezer_music.mvp.ui.navigation.AndroidScreens
 
 class ChartFragment :
     BaseFragment<FragmentChartBinding, Chart, ChartPresenter>(),
@@ -45,7 +47,7 @@ class ChartFragment :
 
     override fun renderSuccess(data: Chart) = with(binding) {
         rvTopTracks.adapter = BaseAdapter(
-            TopTracksListPresenter(data.tracks.data),
+            TopTracksListPresenter(App.INSTANCE.router, AndroidScreens(), data.tracks.data),
             R.layout.item_top
         )
         { view, data ->
