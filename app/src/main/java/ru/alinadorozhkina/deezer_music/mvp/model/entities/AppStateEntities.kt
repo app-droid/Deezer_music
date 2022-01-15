@@ -1,5 +1,6 @@
 package ru.alinadorozhkina.deezer_music.mvp.model.entities
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import ru.alinadorozhkina.deezer_music.mvp.contract.AppStateEntity
 
@@ -19,6 +20,7 @@ data class TopTracks(
     val total: Int
 )
 
+@kotlinx.parcelize.Parcelize
 data class Track(
     @SerializedName("id")
     val id: Int?,
@@ -27,10 +29,10 @@ data class Track(
     @SerializedName("position")
     val position: Int?,
     @SerializedName("preview")
-    val preview: String?,
+    val preview: String,
     @SerializedName("artist")
     val artist: Artist
-) : AppStateEntity
+) : AppStateEntity, Parcelable
 
 data class TopAlbums(
     @SerializedName("data")
@@ -61,6 +63,7 @@ data class TopArtists(
 
 ) : AppStateEntity
 
+@kotlinx.parcelize.Parcelize
 data class Artist(
     @SerializedName("name")
     val name: String,
@@ -69,13 +72,13 @@ data class Artist(
     @SerializedName("position")
     val position: Int?,
     @SerializedName("picture_medium")
-    val picture: String
-) : AppStateEntity
+    val picture: String,
+) : AppStateEntity, Parcelable
 
 data class Radio(
     @SerializedName("data")
-    val data: List< Genre>
-             
+    val data: List<Genre>
+
 ) : AppStateEntity
 
 data class Genre(
