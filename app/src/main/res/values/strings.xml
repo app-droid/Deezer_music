@@ -8,7 +8,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="top_10_tracks">Топ 10 лучших треков</string>
     <string name="top_10_albums">Топ 10 лучших альбомов</string>
-    <string name="top_10_artists">Топ 10 лучших треков</string>
+    <string name="top_10_artists">Топ 10 лучших артистов</string>
     <string name="play_button">play</string>
 
 </resources>
