@@ -12,12 +12,15 @@ import moxy.presenter.ProvidePresenter
 import ru.alinadorozhkina.deezer_music.R
 import ru.alinadorozhkina.deezer_music.databinding.FragmentPlayerBinding
 import ru.alinadorozhkina.deezer_music.databinding.FragmentRadioBinding
+import ru.alinadorozhkina.deezer_music.databinding.TracklistItemBinding
 import ru.alinadorozhkina.deezer_music.mvp.contract.PlayerContact
 import ru.alinadorozhkina.deezer_music.mvp.model.entities.Track
 import ru.alinadorozhkina.deezer_music.mvp.model.entities.TrackList
 import ru.alinadorozhkina.deezer_music.mvp.model.image.IImageLoader
 import ru.alinadorozhkina.deezer_music.mvp.presenter.PlayerPresenter
 import ru.alinadorozhkina.deezer_music.mvp.presenter.RadioPresenter
+import ru.alinadorozhkina.deezer_music.mvp.presenter.list.PlayerListPresenter
+import ru.alinadorozhkina.deezer_music.mvp.ui.adapter.BaseAdapter
 import ru.alinadorozhkina.deezer_music.mvp.ui.base.BaseFragment
 import ru.alinadorozhkina.deezer_music.mvp.ui.image.GlideImageLoader
 
@@ -61,7 +64,22 @@ class PlayerFragment : BaseFragment<FragmentPlayerBinding,
         }
     }
 
-    override fun renderSuccess(data: TrackList) {
+    override fun renderSuccess(data: TrackList) = with(binding)  {
+        Log.d("PlayerFragment", data.toString())
+        rvTracklist.adapter = BaseAdapter(PlayerListPresenter(data.data),
+        R.layout.tracklist_item)
+        { view, data ->
+            playerBind(view, data, imageLoader)
+        }
+    }
+
+    private fun playerBind(view: View, data: Track, imageLoader: IImageLoader<ImageView>){
+        val rvBinding = TracklistItemBinding.bind(view)
+        with (rvBinding) {
+            imageLoader.load(data.album.cover, ivTrackPoster)
+            tvTrackTitle.text = data.title
+            tvTrackTitle.isSelected = true
+        }
     }
 
     override fun setBackground(url: String) {

@@ -31,7 +31,9 @@ data class Track(
     @SerializedName("preview")
     val preview: String,
     @SerializedName("artist")
-    val artist: Artist
+    val artist: Artist,
+    @SerializedName("album")
+    val album: Album
 ) : AppStateEntity, Parcelable
 
 data class TopAlbums(
@@ -42,6 +44,7 @@ data class TopAlbums(
 
 ) : AppStateEntity
 
+@kotlinx.parcelize.Parcelize
 data class Album(
     @SerializedName("title")
     val title: String,
@@ -53,7 +56,7 @@ data class Album(
     val position: Int,
     @SerializedName("artist")
     val artist: Artist
-) : AppStateEntity
+) : AppStateEntity, Parcelable
 
 data class TopArtists(
     @SerializedName("data")
@@ -68,7 +71,7 @@ data class Artist(
     @SerializedName("name")
     val name: String,
     @SerializedName("tracklist")
-    val tracklist: String?,
+    val tracklist: String,
     @SerializedName("position")
     val position: Int?,
     @SerializedName("picture_medium")
