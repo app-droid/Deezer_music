@@ -1,28 +1,25 @@
 package ru.alinadorozhkina.deezer_music.mvp.presenter.list
 
-import ru.alinadorozhkina.deezer_music.mvp.contract.AppStateEntity
-import ru.alinadorozhkina.deezer_music.mvp.contract.ChartContract
+import android.util.Log
+import com.github.terrakok.cicerone.Router
+import ru.alinadorozhkina.deezer_music.mvp.contract.IDataItemView
 import ru.alinadorozhkina.deezer_music.mvp.model.entities.Album
 import ru.alinadorozhkina.deezer_music.mvp.model.entities.Artist
 import ru.alinadorozhkina.deezer_music.mvp.model.entities.Track
+import ru.alinadorozhkina.deezer_music.mvp.navigation.IScreens
+import ru.alinadorozhkina.deezer_music.mvp.presenter.base.BaseListPresenter
 
-abstract class ChartListPresenter<E : AppStateEntity>(val data: List<E>) :
-    ChartContract.IChartListPresenter<E> {
+class TopTracksListPresenter(router: Router, val screens: IScreens, data: List<Track>) : BaseListPresenter<Track>(data) {
 
-    override var itemClickListener: ((ChartContract.IChartItemView<E>) -> Unit)? = null
-
-    override fun getCount(): Int = data.size
-
-    override fun bindView(view: ChartContract.IChartItemView<E>) {
-        val unity = data[view.pos]
-        view.bind(unity)
+    override var itemClickListener: ((IDataItemView<Track>) -> Unit)? = { itemView ->
+        val track = data[itemView.pos]
+        Log.d("TopTracksListPresenter", track.toString())
+        router.navigateTo(screens.player(track))
     }
 }
 
-class TopTracksListPresenter(data: List<Track>) : ChartListPresenter<Track>(data)
+class TopAlbumsListPresenter(data: List<Album>) : BaseListPresenter<Album>(data)
 
-class TopAlbumsListPresenter(data: List<Album>) : ChartListPresenter<Album>(data)
-
-class TopArtistListPresenter(data: List<Artist>) : ChartListPresenter<Artist>(data)
+class TopArtistListPresenter(data: List<Artist>) : BaseListPresenter<Artist>(data)
 
 

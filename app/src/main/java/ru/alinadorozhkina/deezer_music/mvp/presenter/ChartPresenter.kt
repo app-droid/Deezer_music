@@ -13,13 +13,13 @@ import ru.alinadorozhkina.deezer_music.mvp.model.entities.Chart
 
 @InjectViewState
 class ChartPresenter(
-    private val interactor: Interactor<Chart> = MainInteractor(
+    private val interactor: MainInteractor = MainInteractor(
         RepositoryImplementation(
             DataSourceRemote()
         )
     )
-) : BasePresenter<Chart, ChartContract.View<Chart>>(),
-    ChartContract.Presenter<Chart> {
+) : BasePresenter<Chart, ChartContract.View>(),
+    ChartContract.Presenter {
 
     override fun onFirstViewAttach() {
         getChartData()
@@ -45,8 +45,7 @@ class ChartPresenter(
                 viewState.renderData(AppState.Error(e))
             }
 
-            override fun onComplete() {
-            }
+            override fun onComplete() = Unit
         }
     }
 }

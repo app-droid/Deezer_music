@@ -1,18 +1,14 @@
 package ru.alinadorozhkina.deezer_music.mvp.contract
 
+import ru.alinadorozhkina.deezer_music.mvp.model.entities.Chart
+
 interface ChartContract {
 
-    interface View<E : AppStateEntity> : IBaseView<E>
+    interface View : IBaseView<Chart>
 
-    interface Presenter<E : AppStateEntity> : IPresenter<E, View<E>> {
+    interface Presenter: IPresenter<Chart, View> {
         fun getChartData()
     }
-
-    interface IChartItemView<E : AppStateEntity> : IItemView {
-        fun bind(data: E)
-    }
-
-    interface IChartListPresenter<E : AppStateEntity> : IListPresenter<IChartItemView<E>>
 
     interface BaseClickListener
 
