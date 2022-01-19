@@ -21,7 +21,7 @@ abstract class BaseFragment<
 
 
     @ProvidePresenter
-    fun providePresenter() = presenter
+    open fun providePresenter() = presenter
 
 
     override fun renderData(baseState: AppState<E>) {

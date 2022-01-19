@@ -8,7 +8,19 @@
         <item name="android:textSize">14sp</item>
         <item name="maxLines">1</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:maxLength">10</item>
+        <item name="android:maxLength">15</item>
+    </style>
+
+    <style name="TextScrolling">
+        <item name="android:focusable">true</item>
+        android:focusable="true"
+        <item name="android:focusableInTouchMode">true</item>
+        android:focusableInTouchMode="true"
+        <item name="android:ellipsize">marquee</item>
+        android:ellipsize="marquee"
+        <item name="android:scrollHorizontally">true</item>
+        <item name="singleLine">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
     </style>
 
     <style name="TextHeaderStyle">

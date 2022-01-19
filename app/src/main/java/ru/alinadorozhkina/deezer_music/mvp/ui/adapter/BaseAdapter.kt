@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.alinadorozhkina.deezer_music.mvp.contract.*
 
-open class BaseAdapter<E : AppStateEntity >(
+open class BaseAdapter<E : AppStateEntity>(
     private val presenter: IListPresenter<E, IDataItemView<E>>,
     private val itemLayoutId: Int,
     private val bind: ((View, data: E) -> Unit)
@@ -17,7 +17,7 @@ open class BaseAdapter<E : AppStateEntity >(
 
         override var pos = -1
 
-        override  fun bind(data: E) {
+        override fun bind(data: E) {
             bind(root, data)
         }
     }
@@ -25,7 +25,11 @@ open class BaseAdapter<E : AppStateEntity >(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(itemLayoutId, parent, false)
-        return BaseViewHolder(view)
+        return BaseViewHolder(view).apply {
+            itemView.setOnClickListener {
+                presenter.itemClickListener?.invoke(this)
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
