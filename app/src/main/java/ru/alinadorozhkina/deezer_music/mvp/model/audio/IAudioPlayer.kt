@@ -13,4 +13,5 @@ interface IAudioPlayer {
     fun seekTo(msec: Int)
     fun getCurrentPosition(): Int
     fun isPlaying(): Boolean
+    fun reset()
 }

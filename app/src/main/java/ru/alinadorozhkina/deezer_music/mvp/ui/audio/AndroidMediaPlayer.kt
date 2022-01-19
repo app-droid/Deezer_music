@@ -2,6 +2,7 @@ package ru.alinadorozhkina.deezer_music.mvp.ui.audio
 
 import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.util.Log
 import androidx.core.view.inputmethod.InputConnectionCompat
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -22,12 +23,6 @@ class AndroidMediaPlayer : IAudioPlayer {
         get() {
             return this.currentPosition / 1000
         }
-
-    private val listener = MediaPlayer.OnCompletionListener { mediaPlayer.reset() }
-
-    init {
-        mediaPlayer.setOnCompletionListener(listener)
-    }
 
     override fun play(url: String) = Completable.create { emitter ->
         try {
@@ -57,9 +52,18 @@ class AndroidMediaPlayer : IAudioPlayer {
     }.subscribeOn(Schedulers.io())
 
     override fun progress(): Observable<Int> = Observable.create { emitter ->
-        while (mediaPlayer.isPlaying) {
-            Thread.sleep(1000)
-            emitter.onNext(mediaPlayer.currentSeconds)
+        try {
+            while (mediaPlayer.isPlaying) {
+                Thread.sleep(1000)
+                emitter.onNext(mediaPlayer.currentSeconds)
+            }
+
+            mediaPlayer.setOnCompletionListener {
+                emitter.onComplete()
+            }
+
+        } catch (t: Throwable) {
+            emitter.onError(t)
         }
     }
 
@@ -74,6 +78,10 @@ class AndroidMediaPlayer : IAudioPlayer {
 
     override fun release() {
         mediaPlayer.release()
+    }
+
+    override fun reset() {
+        mediaPlayer.reset()
     }
 
 }

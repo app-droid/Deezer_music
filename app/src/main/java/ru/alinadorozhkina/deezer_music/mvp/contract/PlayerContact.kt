@@ -1,15 +1,14 @@
 package ru.alinadorozhkina.deezer_music.mvp.contract
 
-import io.reactivex.Observable
 import io.reactivex.Single
-import moxy.viewstate.strategy.alias.AddToEndSingle
-import ru.alinadorozhkina.deezer_music.mvp.model.entities.Category
+import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.StateStrategyType
 import ru.alinadorozhkina.deezer_music.mvp.model.entities.Track
 import ru.alinadorozhkina.deezer_music.mvp.model.entities.TrackList
 
 interface PlayerContact {
 
-    @AddToEndSingle
+    @StateStrategyType(AddToEndSingleStrategy::class)
     interface View : IBaseView<TrackList> {
         fun setBackground(url: String)
         fun setArtistName(name: String)
@@ -20,7 +19,9 @@ interface PlayerContact {
 
     interface Presenter: IPresenter<TrackList, View> {
         fun playClicked()
-        fun getTrackList()
+        fun pauseClicked()
+        fun getTrackList(track: Track)
+        fun init(track: Track)
     }
 
     interface Repository {

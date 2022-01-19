@@ -2,32 +2,25 @@ package ru.alinadorozhkina.deezer_music.mvp.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import moxy.presenter.InjectPresenter
-import moxy.presenter.ProvidePresenter
 import ru.alinadorozhkina.deezer_music.R
 import ru.alinadorozhkina.deezer_music.databinding.FragmentPlayerBinding
-import ru.alinadorozhkina.deezer_music.databinding.FragmentRadioBinding
 import ru.alinadorozhkina.deezer_music.databinding.TracklistItemBinding
 import ru.alinadorozhkina.deezer_music.mvp.contract.PlayerContact
 import ru.alinadorozhkina.deezer_music.mvp.model.entities.Track
 import ru.alinadorozhkina.deezer_music.mvp.model.entities.TrackList
 import ru.alinadorozhkina.deezer_music.mvp.model.image.IImageLoader
 import ru.alinadorozhkina.deezer_music.mvp.presenter.PlayerPresenter
-import ru.alinadorozhkina.deezer_music.mvp.presenter.RadioPresenter
-import ru.alinadorozhkina.deezer_music.mvp.presenter.list.PlayerListPresenter
 import ru.alinadorozhkina.deezer_music.mvp.ui.adapter.BaseAdapter
 import ru.alinadorozhkina.deezer_music.mvp.ui.base.BaseFragment
 import ru.alinadorozhkina.deezer_music.mvp.ui.image.GlideImageLoader
 
-
 class PlayerFragment : BaseFragment<FragmentPlayerBinding,
-        TrackList,
-        PlayerPresenter>(), PlayerContact.View {
+        TrackList, PlayerPresenter>(), PlayerContact.View {
 
     override var bindingNullable: FragmentPlayerBinding? = null
     private val imageLoader: IImageLoader<ImageView> = GlideImageLoader()
@@ -35,13 +28,12 @@ class PlayerFragment : BaseFragment<FragmentPlayerBinding,
     private val track: Track?
         get() = arguments?.getParcelable("track")
 
-    private var flag = true
+    private var isPlayed: Boolean = true
+
+    private val playlist = mutableListOf<Track>()
 
     @InjectPresenter
     override lateinit var presenter: PlayerPresenter
-
-    @ProvidePresenter
-    override fun providePresenter() = PlayerPresenter(track!!)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,30 +44,42 @@ class PlayerFragment : BaseFragment<FragmentPlayerBinding,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
+    }
+
+    private fun init() {
+        track?.let {
+            presenter.init(it)
+        }
+
         binding.playButton.setOnClickListener {
-            flag = if (flag) {
-                binding.playButton.setImageResource(R.drawable.ic_baseline_pause_24)
-                false
-            } else {
+            if (isPlayed) { // трек играет, кнопка пауза
                 binding.playButton.setImageResource(R.drawable.ic_baseline_play_arrow_24)
-                true
+                isPlayed = false
+                presenter.pauseClicked()
+            } else {
+                binding.playButton.setImageResource(R.drawable.ic_baseline_pause_24)
+                isPlayed = true
+                presenter.playClicked()
             }
-            presenter.playClicked()
         }
     }
 
-    override fun renderSuccess(data: TrackList) = with(binding)  {
+    override fun renderSuccess(data: TrackList) = with(binding) {
         Log.d("PlayerFragment", data.toString())
-        rvTracklist.adapter = BaseAdapter(PlayerListPresenter(data.data),
-        R.layout.tracklist_item)
+        playlist.addAll(data.data)
+        rvTracklist.adapter = BaseAdapter(
+            presenter.PlayListPresenter(data.data),
+            R.layout.tracklist_item
+        )
         { view, data ->
             playerBind(view, data, imageLoader)
         }
     }
 
-    private fun playerBind(view: View, data: Track, imageLoader: IImageLoader<ImageView>){
+    private fun playerBind(view: View, data: Track, imageLoader: IImageLoader<ImageView>) {
         val rvBinding = TracklistItemBinding.bind(view)
-        with (rvBinding) {
+        with(rvBinding) {
             imageLoader.load(data.album.cover, ivTrackPoster)
             tvTrackTitle.text = data.title
             tvTrackTitle.isSelected = true
@@ -83,6 +87,7 @@ class PlayerFragment : BaseFragment<FragmentPlayerBinding,
     }
 
     override fun setBackground(url: String) {
+        Log.d("PlayerFragment setBackground", url)
         imageLoader.load(url, binding.ivBackground)
     }
 
@@ -91,6 +96,7 @@ class PlayerFragment : BaseFragment<FragmentPlayerBinding,
     }
 
     override fun setTrackTitle(title: String) {
+        Log.d("PlayerFragment setTrackTitle", title)
         binding.tvTrackTitle.text = title
     }
 
@@ -111,5 +117,4 @@ class PlayerFragment : BaseFragment<FragmentPlayerBinding,
             return fragment
         }
     }
-
 }
